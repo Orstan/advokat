@@ -1,25 +1,26 @@
 import { NextResponse } from 'next/server';
-import { query } from '@/lib/db';
-import { promises as fs } from 'fs';
-import path from 'path';
-import formidable from 'formidable';
-import { NextApiRequest } from 'next';
+import { createClient } from '@supabase/supabase-js';
 
 export const dynamic = 'force-dynamic';
 
-// Вимикаємо стандартний body parser, оскільки formidable обробляє тіло запиту
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_KEY || ''
+);
 
 // GET - Отримання всіх досягнень
 export async function GET() {
   try {
-    const results = await query('SELECT * FROM achievements ORDER BY created_at DESC', []);
-    return NextResponse.json(results);
+    const { data, error } = await supabase
+      .from('achievements')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    
+    return NextResponse.json(data || []);
   } catch (error: any) {
+    console.error('GET achievements error:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
@@ -36,28 +37,30 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    await fs.mkdir(uploadDir, { recursive: true });
-
-    const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
+    const imageBuffer = await imageFile.arrayBuffer();
     const imageName = `${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`;
-    const imagePath = path.join(uploadDir, imageName);
-    await fs.writeFile(imagePath, imageBuffer);
 
-    const imageUrl = `/uploads/${imageName}`;
+    const { error: uploadError } = await supabase.storage
+      .from('achievements')
+      .upload(imageName, imageBuffer, {
+        contentType: imageFile.type,
+        upsert: false
+      });
 
-    const sql = 'INSERT INTO achievements (title, description, image_url) VALUES (?, ?, ?)';
-    const result: any = await query(sql, [title, description, imageUrl]);
+    if (uploadError) throw uploadError;
 
-    const newAchievement = {
-      id: result.insertId,
-      title,
-      description,
-      image_url: imageUrl,
-      created_at: new Date().toISOString(),
-    };
+    const { data: { publicUrl } } = supabase.storage
+      .from('achievements')
+      .getPublicUrl(imageName);
 
-    return NextResponse.json(newAchievement, { status: 201 });
+    const { data, error } = await supabase
+      .from('achievements')
+      .insert([{ title, description, image_url: publicUrl }])
+      .select();
+
+    if (error) throw error;
+
+    return NextResponse.json(data[0], { status: 201 });
 
   } catch (error: any) {
     console.error('POST Error:', error);
@@ -82,61 +85,72 @@ export async function PUT(req: Request) {
     let imageUrl = oldImageUrl;
 
     if (imageFile) {
-      // Видаляємо старе зображення
       if (oldImageUrl) {
-        const oldImagePath = path.join(process.cwd(), 'public', oldImageUrl);
-        try {
-          await fs.unlink(oldImagePath);
-        } catch (e) {
-          console.error(`Failed to delete old image: ${oldImagePath}`, e);
+        const oldImageName = oldImageUrl.split('/').pop();
+        if (oldImageName) {
+          await supabase.storage
+            .from('achievements')
+            .remove([oldImageName]);
         }
       }
 
-      // Завантажуємо нове зображення
-      const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-      await fs.mkdir(uploadDir, { recursive: true });
-
-      const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
+      const imageBuffer = await imageFile.arrayBuffer();
       const imageName = `${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`;
-      const imagePath = path.join(uploadDir, imageName);
-      await fs.writeFile(imagePath, imageBuffer);
-      imageUrl = `/uploads/${imageName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('achievements')
+        .upload(imageName, imageBuffer, {
+          contentType: imageFile.type,
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('achievements')
+        .getPublicUrl(imageName);
+
+      imageUrl = publicUrl;
     }
 
-    const sql = 'UPDATE achievements SET title = ?, description = ?, image_url = ? WHERE id = ?';
-    await query(sql, [title, description, imageUrl, id]);
+    const { error } = await supabase
+      .from('achievements')
+      .update({ title, description, image_url: imageUrl })
+      .eq('id', id);
 
-    const updatedAchievement = {
+    if (error) throw error;
+
+    return NextResponse.json({
       id: parseInt(id, 10),
       title,
       description,
       image_url: imageUrl,
-    };
-
-    return NextResponse.json(updatedAchievement);
+    });
   } catch (error: any) {
     console.error('PUT Error:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
-// DELETE - Видалення досягнення
-export async function DELETE(req: Request) {
-  try {
-    const { id, imageUrl } = await req.json();
-
-    if (!id) {
-      return NextResponse.json({ error: 'Missing achievement ID' }, { status: 400 });
-    }
+// Drt async function DELETE(req: Request) {
+  try {Nme.split('/'.pop()
+    coif (imageName) { id, imageUrl } = await req.json();
+upabasestor
+       if(.from('i) ievement'
+        rexpsm{v:(['MisaNaen]us
 
     // Видаляємо зображення з сервера
     if (imageUrl) {
-      const imagePath = path.join(process.cwd(), 'public', imageUrl);
-      try {
-        await fs.unlink(imagePath);
+    constc{eerror=}p=jawait supabaserocess.cwd(), 'public', imageUrl);
+     .from(')
+    .elete()
+    .eq('id, id)
+
+     f (error) ahrowwtrro agePath);
       } catch (fsError) {
         console.error(`Failed to delete image file: ${imagePath}`, fsError);
-        // Не блокуємо видалення з БД, якщо файл не знайдено
+        // Не блокуємо в
+    console.error('DELETE Error:', error);идалення з БД, якщо файл не знайдено
       }
     }
 
