@@ -1,11 +1,11 @@
-import { useLocale } from 'next-intl';
 import Layout from '@/components/Layout';
 import { servicesData } from '@/data/services';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-export async function generateMetadata({ params }: { params: { serviceId: string; locale: string } }) {
-  const service = servicesData[params.locale]?.find(s => s.id === params.serviceId);
+export async function generateMetadata({ params }: { params: Promise<{ serviceId: string; locale: string }> }) {
+  const { serviceId, locale } = await params;
+  const service = servicesData[locale]?.find(s => s.id === serviceId);
 
   if (!service) {
     return {
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: { serviceId: string
     }
   };
 
-  const keywords = keywordsMap[params.serviceId]?.[params.locale as 'uk' | 'en'] || '';
+  const keywords = keywordsMap[serviceId]?.[locale as 'uk' | 'en'] || '';
 
   return {
     title: `${service.title} Харків | Адвокат Пройдак Сергій ⚖️`,
@@ -48,9 +48,9 @@ export async function generateMetadata({ params }: { params: { serviceId: string
     keywords: keywords,
     openGraph: {
       type: 'article',
-      locale: params.locale === 'uk' ? 'uk_UA' : 'en_US',
-      url: `https://advokat-proidak.com/${params.locale}/services/${params.serviceId}`,
-      siteName: params.locale === 'uk' ? 'Адвокат Пройдак' : 'Lawyer Proidak',
+      locale: locale === 'uk' ? 'uk_UA' : 'en_US',
+      url: `https://advokat-proidak.com/${locale}/services/${serviceId}`,
+      siteName: locale === 'uk' ? 'Адвокат Пройдак' : 'Lawyer Proidak',
       title: `${service.title} | Адвокат Харків`,
       description: service.description,
       images: [
@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: { params: { serviceId: string
       images: ['https://advokat-proidak.com/og-image.jpg'],
     },
     alternates: {
-      canonical: `https://advokat-proidak.com/${params.locale}/services/${params.serviceId}`,
+      canonical: `https://advokat-proidak.com/${locale}/services/${serviceId}`,
     },
   };
 }
@@ -84,9 +84,9 @@ export function generateStaticParams() {
   return params;
 }
 
-export default function ServiceDetailPage({ params }: { params: { serviceId: string; locale: string } }) {
-  const locale = useLocale();
-  const service = servicesData[locale]?.find(s => s.id === params.serviceId);
+export default async function ServiceDetailPage({ params }: { params: Promise<{ serviceId: string; locale: string }> }) {
+  const { serviceId, locale } = await params;
+  const service = servicesData[locale]?.find(s => s.id === serviceId);
 
   if (!service) {
     notFound();
