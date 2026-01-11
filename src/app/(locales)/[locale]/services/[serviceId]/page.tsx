@@ -15,35 +15,35 @@ export async function generateMetadata({ params }: { params: { serviceId: string
 
   const keywordsMap: { [key: string]: { uk: string; en: string } } = {
     criminal: {
-      uk: 'кримінальний адвокат Київ, захист у кримінальній справі, адвокат з кримінальних справ, захист підозрюваного, захист обвинуваченого, адвокат на досудовому розслідуванні',
-      en: 'criminal lawyer Kyiv, criminal defense attorney, criminal case defense, suspect defense, accused defense, pre-trial investigation lawyer'
+      uk: 'кримінальний адвокат Харків, захист у кримінальній справі, адвокат з кримінальних справ, захист підозрюваного, захист обвинуваченого, адвокат на досудовому розслідуванні',
+      en: 'criminal lawyer Kharkiv, criminal defense attorney, criminal case defense, suspect defense, accused defense, pre-trial investigation lawyer'
     },
     civil: {
-      uk: 'цивільний адвокат Київ, цивільні спори, позовна заява, адвокат у цивільній справі, захист майнових прав, спадкові спори',
-      en: 'civil lawyer Kyiv, civil disputes, statement of claim, civil case attorney, property rights defense, inheritance disputes'
+      uk: 'цивільний адвокат Харків, цивільні спори, позовна заява, адвокат у цивільній справі, захист майнових прав, спадкові спори',
+      en: 'civil lawyer Kharkiv, civil disputes, statement of claim, civil case attorney, property rights defense, inheritance disputes'
     },
     corporate: {
-      uk: 'господарський адвокат, корпоративний юрист Київ, реєстрація ТОВ, господарські спори, юридичний супровід бізнесу',
-      en: 'corporate lawyer, business attorney Kyiv, LLC registration, commercial disputes, legal business support'
+      uk: 'господарський адвокат, корпоративний юрист Харків, реєстрація ТОВ, господарські спори, юридичний супровід бізнесу',
+      en: 'corporate lawyer, business attorney Kharkiv, LLC registration, commercial disputes, legal business support'
     },
     military: {
-      uk: 'військовий адвокат, юрист з військових питань, оскарження ВЛК, бронювання, мобілізація адвокат Київ',
-      en: 'military lawyer, military law attorney, military medical commission appeal, reservation, mobilization lawyer Kyiv'
+      uk: 'військовий адвокат, юрист з військових питань, оскарження ВЛК, бронювання, мобілізація адвокат Харків',
+      en: 'military lawyer, military law attorney, military medical commission appeal, reservation, mobilization lawyer Kharkiv'
     },
     administrative: {
       uk: 'адміністративний адвокат, оскарження штрафів, адміністративні правопорушення, захист від поліції, адмінпротокол',
       en: 'administrative lawyer, fine appeal, administrative offenses, police defense, administrative protocol'
     },
     consultation: {
-      uk: 'юридична консультація Київ, консультація адвоката, правова допомога, юрист онлайн, безкоштовна консультація юриста',
-      en: 'legal consultation Kyiv, lawyer consultation, legal assistance, online lawyer, free legal consultation'
+      uk: 'юридична консультація Харків, консультація адвоката, правова допомога, юрист онлайн, безкоштовна консультація юриста',
+      en: 'legal consultation Kharkiv, lawyer consultation, legal assistance, online lawyer, free legal consultation'
     }
   };
 
   const keywords = keywordsMap[params.serviceId]?.[params.locale as 'uk' | 'en'] || '';
 
   return {
-    title: `${service.title} Київ | Адвокат Пройдак Сергій ⚖️`,
+    title: `${service.title} Харків | Адвокат Пройдак Сергій ⚖️`,
     description: service.description.substring(0, 155) + '...',
     keywords: keywords,
     openGraph: {
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: { params: { serviceId: string
       locale: params.locale === 'uk' ? 'uk_UA' : 'en_US',
       url: `https://advokat-proidak.com/${params.locale}/services/${params.serviceId}`,
       siteName: params.locale === 'uk' ? 'Адвокат Пройдак' : 'Lawyer Proidak',
-      title: `${service.title} | Адвокат Київ`,
+      title: `${service.title} | Адвокат Харків`,
       description: service.description,
       images: [
         {
@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: { serviceId: string
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${service.title} | Адвокат Київ`,
+      title: `${service.title} | Адвокат Харків`,
       description: service.description.substring(0, 160),
       images: ['https://advokat-proidak.com/og-image.jpg'],
     },

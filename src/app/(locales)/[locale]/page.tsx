@@ -15,18 +15,18 @@ export async function generateMetadata({
   const { locale } = await params;
   
   const titles = {
-    uk: 'Адвокат Київ - Пройдак Сергій | Кримінальний, Цивільний, Адміністративний захист',
-    en: 'Lawyer Kyiv - Serhii Proidak | Criminal, Civil, Administrative Defense'
+    uk: 'Адвокат Харків - Пройдак Сергій | Кримінальний, Цивільний, Адміністративний захист',
+    en: 'Lawyer Kharkiv - Serhii Proidak | Criminal, Civil, Administrative Defense'
   };
   
   const descriptions = {
-    uk: 'Досвідчений адвокат у Києві ⚖️ Кримінальне право, Цивільне право, Адміністративний захист, Військове право. Захист у суді всіх інстанцій. Безкоштовна консультація ☎️ Працюємо 24/7',
-    en: 'Experienced lawyer in Kyiv ⚖️ Criminal law, Civil law, Administrative defense, Military law. Court defense at all levels. Free consultation ☎️ Available 24/7'
+    uk: 'Досвідчений адвокат у Харкові ⚖️ Кримінальне право, Цивільне право, Адміністративний захист, Військове право. Захист у суді всіх інстанцій. Безкоштовна консультація ☎️ Працюємо 24/7',
+    en: 'Experienced lawyer in Kharkiv ⚖️ Criminal law, Civil law, Administrative defense, Military law. Court defense at all levels. Free consultation ☎️ Available 24/7'
   };
 
   const keywords = {
-    uk: 'адвокат Київ, адвокат у Києві, кримінальний адвокат, цивільний адвокат, захист у суді, юрист Київ, правова допомога, адвокат з кримінальних справ, адвокат з цивільних справ, адвокат Пройдак, військовий адвокат, адміністративний захист, юридична консультація Київ',
-    en: 'lawyer Kyiv, attorney Kiev, criminal lawyer, civil lawyer, court defense, legal assistance Ukraine, criminal defense attorney, civil attorney, lawyer Proidak, military lawyer, administrative defense, legal consultation Kiev'
+    uk: 'адвокат Харків, адвокат у Харкові, кримінальний адвокат, цивільний адвокат, захист у суді, юрист Харків, правова допомога, адвокат з кримінальних справ, адвокат з цивільних справ, адвокат Пройдак, військовий адвокат, адміністративний захист, юридична консультація Харків',
+    en: 'lawyer Kharkiv, attorney Kharkiv, criminal lawyer, civil lawyer, court defense, legal assistance Ukraine, criminal defense attorney, civil attorney, lawyer Proidak, military lawyer, administrative defense, legal consultation Kharkiv'
   };
   
   return {
