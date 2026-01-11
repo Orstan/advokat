@@ -1,19 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sql } from '@vercel/postgres';
+import { createClient } from '@supabase/supabase-js';
 
 export const dynamic = 'force-dynamic';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_KEY || ''
+);
 
 // GET - отримати всі видимі відгуки
 export async function GET() {
   try {
-    const result = await sql`
-      SELECT id, name, rating, text, created_at 
-      FROM testimonials 
-      WHERE is_visible = TRUE 
-      ORDER BY created_at DESC
-    `;
+    const { data, error } = await supabase
+      .from('testimonials')
+      .select('*')
+      .eq('is_visible', true)
+      .order('created_at', { ascending: false });
     
-    return NextResponse.json(result.rows);
+    if (error) throw error;
+    
+    return NextResponse.json(data || []);
   } catch (error) {
     console.error('Error fetching testimonials:', error);
     return NextResponse.json({ 
@@ -37,14 +43,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Rating must be between 1 and 5' }, { status: 400 });
     }
 
-    const result = await sql`
-      INSERT INTO testimonials (name, rating, text, is_visible) 
-      VALUES (${name}, ${rating}, ${text}, FALSE)
-      RETURNING id
-    `;
+    const { data, error } = await supabase
+      .from('testimonials')
+      .insert([{ name, rating, text, is_visible: false }])
+      .select();
+
+    if (error) throw error;
 
     return NextResponse.json({ 
-      id: result.rows[0].id,
+      id: data[0].id,
       message: 'Testimonial submitted successfully. It will be visible after moderation.' 
     }, { status: 201 });
   } catch (error) {
@@ -66,11 +73,12 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    await sql`
-      UPDATE testimonials 
-      SET is_visible = ${is_visible} 
-      WHERE id = ${id}
-    `;
+    const { error } = await supabase
+      .from('testimonials')
+      .update({ is_visible })
+      .eq('id', id);
+
+    if (error) throw error;
 
     return NextResponse.json({ message: 'Testimonial updated successfully' });
   } catch (error) {
@@ -82,7 +90,7 @@ export async function PUT(request: NextRequest) {
   }
 }
 
-// DELETE - видалити відгук (для адміна)
+// DELETE - видалити відгук
 export async function DELETE(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -92,17 +100,19 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Missing testimonial ID' }, { status: 400 });
     }
 
-    await query(
-      `DELETE FROM testimonials WHERE id = ?`,
-      [id]
-    );
+    const { error } = await supabase
+      .from('testimonials')
+      .delete()
+      .eq('id', id);
 
-    return NextResponse.json({ 
-      success: true,
-      message: 'Testimonial deleted successfully' 
-    });
+    if (error) throw error;
+
+    return NextResponse.json({ message: 'Testimonial deleted successfully' });
   } catch (error) {
     console.error('Error deleting testimonial:', error);
-    return NextResponse.json({ error: 'Failed to delete testimonial' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Failed to delete testimonial',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }
