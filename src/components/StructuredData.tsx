@@ -12,8 +12,8 @@ export default function StructuredData({ locale }: StructuredDataProps) {
     "@type": "LegalService",
     "name": locale === 'uk' ? "Адвокат Пройдак Сергій Миколайович" : "Lawyer Serhii Proidak",
     "description": locale === 'uk' 
-      ? "Професійний адвокат у Києві. Кримінальне, цивільне, адміністративне право. Захист у суді, юридичні консультації."
-      : "Professional lawyer in Kyiv. Criminal, civil, administrative law. Court defense, legal consultations.",
+      ? "Професійний адвокат у Харкові. Кримінальне, цивільне, адміністративне право. Захист у суді, юридичні консультації."
+      : "Professional lawyer in Kharkiv. Criminal, civil, administrative law. Court defense, legal consultations.",
     "url": "https://advokat-proidak.com",
     "logo": "https://advokat-proidak.com/logo.png",
     "image": "https://advokat-proidak.com/og-image.jpg",
@@ -21,14 +21,14 @@ export default function StructuredData({ locale }: StructuredDataProps) {
     "email": "info@advokat-proidak.com",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": locale === 'uk' ? "Київ" : "Kyiv",
+      "addressLocality": locale === 'uk' ? "Харків" : "Kharkiv",
       "addressCountry": "UA",
       "streetAddress": ""
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "50.4501",
-      "longitude": "30.5234"
+      "latitude": "49.9935",
+      "longitude": "36.2304"
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
