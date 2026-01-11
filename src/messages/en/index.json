@@ -1,0 +1,166 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contacts": "Contacts",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Law Office of Serhii Proidak",
+    "subtitle": "Professional legal protection of your interests",
+    "contactButton": "Contact Us",
+    "servicesButton": "Our Services"
+  },
+  "home": {
+    "title": "Law Office of Serhii Proidak",
+    "subtitle": "Professional legal protection of your interests",
+    "contactButton": "Contact Us",
+    "servicesButton": "Our Services"
+  },
+  "about": {
+    "title": "About the Lawyer",
+    "subtitle": "Serhii Proidak",
+    "description": "Young, energetic, and goal-oriented lawyer for whom each case is a challenge and an opportunity to prove his expertise. I work quickly, precisely, and with maximum focus on results, using modern approaches to defense and the latest legal tools.",
+    "descriptionPart2": "My advantage is the combination of a fresh perspective and solid knowledge. I am not afraid of complex situations and always look for non-standard solutions to provide the client with the best possible outcome.",
+    "descriptionPart3": "It is important to me that each client feels supported and confident about tomorrow.",
+    "education": "Education",
+    "educationText": "Yaroslav Mudryi National Law University, specialty \"Jurisprudence\"",
+    "qualificationText": "Qualification and Disciplinary Commission of the Bar, certificate of the right to practice law",
+    "criminalLaw": "Criminal Law",
+    "criminalLawText": "Confident defense at any stage",
+    "civilLaw": "Civil Law",
+    "civilLawText": "Effective representation and conflict resolution",
+    "professionalism": "Professionalism",
+    "professionalismText": "Modern approaches to defense and the latest legal tools",
+    "confidentiality": "Confidentiality",
+    "confidentialityText": "Guarantee of complete confidentiality of client information",
+    "individualApproach": "Individual Approach",
+    "individualApproachText": "Non-standard solutions for the best results"
+  },
+  "services": {
+    "title": "Our Services",
+    "criminal": "Criminal Law",
+    "civil": "Civil, Family, Housing, Labor Law",
+    "corporate": "Corporate Law",
+    "military": "Military Law",
+    "administrative": "Administrative Law",
+    "consultation": "Legal Consultations"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "address": "Address",
+    "addressValue": "Kharkiv, 23 Serpnia Street 29A, apt. 45",
+    "phone": "Phone",
+    "email": "Email",
+    "emailValue": "info@advokat-proidak.com",
+    "workingHours": "Working Hours",
+    "weekdays": "Monday - Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "closed": "Closed",
+    "contactForm": "Contact Us",
+    "contactFormTitle": "Contact Us",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "phoneLabel": "Phone",
+    "phonePlaceholder": "Enter your phone number",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Enter your message",
+    "submitButton": "Submit",
+    "loading": "Sending...",
+    "formSubmittedMessage": "Thank you! Your message has been sent successfully. We will contact you shortly.",
+    "requiredFieldsNote": "Fields marked with an asterisk (*) are required.",
+    "name": "Name",
+    "phoneNumber": "Phone",
+    "message": "Message",
+    "send": "Send",
+    "thankYou": "Thank you! Your message has been sent. We will contact you soon.",
+    "findUs": "How to Find Us",
+    "mapPlaceholder": "Map with office location",
+    "officeLocation": "The office is located in the central part of Kharkiv, near the \"23 Serpnia\" metro station."
+  },
+
+  "footer": {
+    "rights": "© 2025 Law Office of Serhii Proidak. All rights reserved.",
+    "quickLinks": "Quick Links",
+    "studio": "WebVy Studio",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "PrivacyPolicy": {
+    "title": "Privacy Policy",
+    "section1": {
+      "title": "1. General Provisions",
+      "content": "This Privacy Policy defines the procedure for processing and protecting information about individuals that may be obtained when using the website of the Law Office of Serhii Proidak. We respect your right to privacy and are committed to protecting your personal data in accordance with the current legislation of Ukraine."
+    },
+    "section2": {
+      "title": "2. Collection and Use of Personal Data",
+      "content": "We collect personal data that you voluntarily provide to us through the feedback forms on the website, including name, phone number, and email address. This data is used exclusively to contact you and provide legal advice or services that you request."
+    },
+    "section3": {
+      "title": "3. Protection of Personal Data",
+      "content": "We take all necessary technical and organizational measures to protect your personal data from unauthorized access, alteration, disclosure, or destruction. Only authorized employees of the law office, who are obliged to maintain confidentiality, have access to your personal data."
+    },
+    "section4": {
+      "title": "4. Disclosure of Information to Third Parties",
+      "content": "We do not transfer your personal data to third parties without your consent, except in cases provided for by the legislation of Ukraine. The law office guarantees compliance with attorney-client privilege in accordance with the Law of Ukraine 'On Advocacy and Legal Practice'."
+    },
+    "section5": {
+      "title": "5. Changes to the Privacy Policy",
+      "content": "We reserve the right to make changes to this Privacy Policy. Any changes will be published on this page. We recommend periodically reviewing this Policy to stay informed of any changes."
+    },
+    "lastUpdated": "Last updated:",
+    "date": "August 9, 2025"
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "message": "Sorry, the page you are looking for does not exist or has been moved.",
+    "backHome": "Return to Home"
+  },
+  "cookieConsent": {
+    "message": "This website uses cookies and processes personal data to enhance your experience. By clicking 'Accept', you agree to our",
+    "privacyPolicy": "Privacy Policy",
+    "accept": "Accept"
+  },
+  "quickContact": {
+    "callNow": "Call Now"
+  },
+  "callbackPopup": {
+    "title": "Request a Callback",
+    "description": "Leave your phone number, and we will contact you as soon as possible.",
+    "nameLabel": "Your Name",
+    "namePlaceholder": "Enter your name",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "+380XXXXXXXXX",
+    "submitButton": "Request a Call",
+    "thankYou": "Thank you for your request!",
+    "callbackPromise": "We will contact you as soon as possible.",
+    "close": "Close"
+  },
+  "FAQ": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to the most common questions from our clients",
+    "item1": {
+      "question": "How long does the first consultation take?",
+      "answer": "The first consultation usually takes about 1 hour. During the consultation, we will discuss your situation in detail and determine the best strategy to protect your interests."
+    },
+    "item2": {
+      "question": "How much do attorney services cost?",
+      "answer": "The cost of services depends on the complexity of your case and the amount of work required. After the first consultation, I will be able to provide you with detailed information about the cost of services."
+    },
+    "item3": {
+      "question": "Can I get an online consultation?",
+      "answer": "Yes, I provide online consultations via Zoom, Skype, or other platforms convenient for you. This is convenient for clients who cannot visit my office in person."
+    },
+    "item4": {
+      "question": "How quickly can you take on my case?",
+      "answer": "I try to take on new cases as quickly as possible. Usually, we can start working within 1-3 days after the first consultation and signing the contract."
+    },
+    "item5": {
+      "question": "What documents should I prepare for the first consultation?",
+      "answer": "For the first consultation, it is advisable to have all documents related to your case: contracts, correspondence, court documents, etc. This will help me better understand your situation and provide the most effective consultation."
+    }
+  }
+}

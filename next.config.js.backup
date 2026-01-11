@@ -1,0 +1,26 @@
+/** @type {import('next').NextConfig} */
+const withNextIntl = require('next-intl/plugin')('./src/i18n/request.ts');
+
+const nextConfig = {
+  reactStrictMode: true,
+  trailingSlash: true,
+  // Вмикаємо статичний експорт, щоб файли генерувалися в папку out
+  output: 'export',
+  distDir: 'out',
+  images: {
+    domains: [],
+    unoptimized: true,
+  },
+  // Не можна використовувати i18n з output: export
+  // i18n налаштування використовується через next-intl middleware
+  typescript: {
+    // Ігноруємо помилки типів під час збірки
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    // Ігноруємо помилки ESLint під час збірки
+    ignoreDuringBuilds: true,
+  }
+};
+
+module.exports = withNextIntl(nextConfig);

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://advokat-proidak.com
+
+# Sitemaps
+Sitemap: https://advokat-proidak.com/sitemap.xml

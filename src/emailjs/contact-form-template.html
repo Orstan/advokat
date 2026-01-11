@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Повідомлення з форми контактів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #1e3a8a; /* синій колір, як на сайті */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .field {
+            margin-bottom: 15px;
+        }
+        .field-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .field-value {
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 3px;
+        }
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Нове повідомлення з сайту</h1>
+        </div>
+        <div class="content">
+            <p>Шановний Сергій Миколайович,</p>
+            <p>Ви отримали нове повідомлення від відвідувача вашого сайту:</p>
+            
+            <div class="field">
+                <div class="field-label">Ім'я:</div>
+                <div class="field-value">{{name}}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Електронна пошта:</div>
+                <div class="field-value">{{email}}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Телефон:</div>
+                <div class="field-value">{{phone}}</div>
+            </div>
+            
+            <div class="field">
+                <div class="field-label">Повідомлення:</div>
+                <div class="field-value">{{message}}</div>
+            </div>
+            
+            <div class="contact-info">
+                <p>Це повідомлення було надіслано автоматично з форми зворотного зв'язку на вашому сайті.</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2025 Адвокат Пройдак Сергій Миколайович | Харків, вул. 23 Серпня 29А, кв. 45</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Якщо запит до існуючого файлу або директорії, обробляємо напряму
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  
+  # Перенаправляємо запити на uk/ та en/ на відповідні index.html
+  RewriteRule ^uk/about/?$ /uk/about/index.html [L]
+  RewriteRule ^uk/services/?$ /uk/services/index.html [L]
+  RewriteRule ^uk/contacts/?$ /uk/contacts/index.html [L]
+  RewriteRule ^en/about/?$ /en/about/index.html [L]
+  RewriteRule ^en/services/?$ /en/services/index.html [L]
+  RewriteRule ^en/contacts/?$ /en/contacts/index.html [L]
+  
+  # Перенаправляємо запити на uk/ та en/ на відповідні index.html
+  RewriteRule ^uk/?$ /uk/index.html [L]
+  RewriteRule ^en/?$ /en/index.html [L]
+  
+  # Всі інші запити перенаправляємо на index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Налаштування MIME-типів
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType text/css .css
+  AddType application/json .json
+</IfModule>
+
+# Налаштування кешування
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType application/json "access plus 0 seconds"
+</IfModule>
+
+# Налаштування CORS
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+</IfModule>
