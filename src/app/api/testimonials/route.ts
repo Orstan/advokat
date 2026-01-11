@@ -45,14 +45,14 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await supabase
       .from('testimonials')
-      .insert([{ name, rating, text, is_visible: false }])
+      .insert([{ name, rating, text, is_visible: true }])
       .select();
 
     if (error) throw error;
 
     return NextResponse.json({ 
       id: data[0].id,
-      message: 'Testimonial submitted successfully. It will be visible after moderation.' 
+      message: 'Testimonial submitted successfully.' 
     }, { status: 201 });
   } catch (error) {
     console.error('Error adding testimonial:', error);
