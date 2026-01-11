@@ -132,34 +132,34 @@ export async function PUT(req: Request) {
   }
 }
 
-// Drt async function DELETE(req: Request) {
-  try {Nme.split('/'.pop()
-    coif (imageName) { id, imageUrl } = await req.json();
-upabasestor
-       if(.from('i) ievement'
-        rexpsm{v:(['MisaNaen]us
+// DELETE - Видалення досягнення
+export async function DELETE(req: Request) {
+  try {
+    const { id, imageUrl } = await req.json();
 
-    // Видаляємо зображення з сервера
+    if (!id) {
+      return NextResponse.json({ error: 'Missing achievement ID' }, { status: 400 });
+    }
+
     if (imageUrl) {
-    constc{eerror=}p=jawait supabaserocess.cwd(), 'public', imageUrl);
-     .from(')
-    .elete()
-    .eq('id, id)
-
-     f (error) ahrowwtrro agePath);
-      } catch (fsError) {
-        console.error(`Failed to delete image file: ${imagePath}`, fsError);
-        // Не блокуємо в
-    console.error('DELETE Error:', error);идалення з БД, якщо файл не знайдено
+      const imageName = imageUrl.split('/').pop();
+      if (imageName) {
+        await supabase.storage
+          .from('achievements')
+          .remove([imageName]);
       }
     }
 
-    // Видаляємо запис з бази даних
-    const sql = 'DELETE FROM achievements WHERE id = ?';
-    await query(sql, [id]);
+    const { error } = await supabase
+      .from('achievements')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
 
     return NextResponse.json({ message: 'Achievement deleted successfully' });
   } catch (error: any) {
+    console.error('DELETE Error:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
