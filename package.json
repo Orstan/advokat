@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --no-lint",
-    "build-force": "set NEXT_DISABLE_PRERENDER=true && next build --no-lint",
+    "build": "next build",
+    "build-force": "set NEXT_DISABLE_PRERENDER=true && next build",
     "start": "next start",
     "lint": "next lint",
     "postbuild": "next-sitemap"
