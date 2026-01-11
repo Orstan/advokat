@@ -1,9 +1,11 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
 
 export default function Services() {
   const t = useTranslations('services');
+  const locale = useLocale();
   
   const services = [
     {
@@ -65,16 +67,17 @@ export default function Services() {
         <div className="mt-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service) => (
-              <div
+              <Link
                 key={service.id}
-                className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-700 transition-colors duration-300"
+                href={`/${locale}/services/${service.id}`}
+                className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-700 transition-colors duration-300 block"
               >
                 <div className="text-blue-700 mb-4">{service.icon}</div>
                 <h3 className="text-xl font-bold text-white mb-3">{t(service.id)}</h3>
                 <p className="text-gray-300">
                   {t(`${service.id}Desc`)}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -7,6 +7,11 @@ export const dynamic = 'force-dynamic';
 // GET - отримати всі видимі відгуки
 export async function GET() {
   try {
+    console.log('DB_HOST:', process.env.DB_HOST);
+    console.log('DB_USER:', process.env.DB_USER);
+    console.log('DB_DATABASE:', process.env.DB_DATABASE);
+    console.log('DB_PASSWORD exists:', !!process.env.DB_PASSWORD);
+    
     const testimonials = await query(
       `SELECT id, name, rating, text, created_at 
        FROM testimonials 
@@ -18,15 +23,21 @@ export async function GET() {
     return NextResponse.json(testimonials);
   } catch (error) {
     console.error('Error fetching testimonials:', error);
-    return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });
+    console.error('Error details:', JSON.stringify(error, null, 2));
+    return NextResponse.json({ 
+      error: 'Failed to fetch testimonials',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }
 
 // POST - додати новий відгук
 export async function POST(request: NextRequest) {
   try {
+    console.log('POST /api/testimonials - Start');
     const body = await request.json();
     const { name, email, rating, text } = body;
+    console.log('Received data:', { name, email, rating, textLength: text?.length });
 
     if (!name || !rating || !text) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -36,11 +47,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Rating must be between 1 and 5' }, { status: 400 });
     }
 
+    console.log('Attempting to insert into database...');
     const result: any = await query(
       `INSERT INTO testimonials (name, email, rating, text, is_visible) 
        VALUES (?, ?, ?, ?, TRUE)`,
       [name, email || null, rating, text]
     );
+    console.log('Insert successful, ID:', result.insertId);
 
     return NextResponse.json({ 
       success: true, 
@@ -49,7 +62,11 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error adding testimonial:', error);
-    return NextResponse.json({ error: 'Failed to add testimonial' }, { status: 500 });
+    console.error('Error details:', JSON.stringify(error, null, 2));
+    return NextResponse.json({ 
+      error: 'Failed to add testimonial',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }
 
