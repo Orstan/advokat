@@ -15,12 +15,10 @@ module.exports = {
     // Локалізації
     const locales = ['uk', 'en'];
     
-    // Послуги
+    // Послуги (точні ID з services.ts)
     const services = [
-      'criminal', 'civil', 'corporate', 'family', 
-      'labor', 'administrative', 'bankruptcy', 
-      'intellectual', 'real-estate', 'inheritance', 
-      'consumer', 'migration'
+      'criminal', 'civil', 'corporate', 
+      'military', 'administrative', 'consultation'
     ];
     
     // Головні сторінки для кожної локалі

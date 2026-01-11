@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import '@/app/globals.css';
 import { notFound } from 'next/navigation';
 import React from 'react';
+import StructuredData from '@/components/StructuredData';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,6 +27,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
+      <StructuredData locale={locale} />
       {children}
     </NextIntlClientProvider>
   );
