@@ -39,6 +39,18 @@ export default function RootLayout({
         <meta name="theme-color" content="#1f2937" />
         <title>Адвокат Пройдак Сергій Миколайович</title>
         <meta name="description" content="Професійний юридичний захист ваших інтересів" />
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17865440785"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-17865440785');
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-gray-100`}
