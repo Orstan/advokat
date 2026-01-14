@@ -3,6 +3,13 @@ import { createClient } from '@supabase/supabase-js';
 
 export const dynamic = 'force-dynamic';
 
+function generateSafeFileName(originalName: string): string {
+  const ext = originalName.split('.').pop() || 'jpg';
+  const timestamp = Date.now();
+  const randomStr = Math.random().toString(36).substring(2, 8);
+  return `${timestamp}-${randomStr}.${ext}`;
+}
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
   process.env.SUPABASE_SERVICE_KEY || ''
@@ -38,7 +45,7 @@ export async function POST(req: Request) {
     }
 
     const imageBuffer = await imageFile.arrayBuffer();
-    const imageName = `${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`;
+    const imageName = generateSafeFileName(imageFile.name);
 
     const { error: uploadError } = await supabase.storage
       .from('achievements')
@@ -95,7 +102,7 @@ export async function PUT(req: Request) {
       }
 
       const imageBuffer = await imageFile.arrayBuffer();
-      const imageName = `${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`;
+      const imageName = generateSafeFileName(imageFile.name);
 
       const { error: uploadError } = await supabase.storage
         .from('achievements')
