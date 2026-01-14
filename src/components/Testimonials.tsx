@@ -179,29 +179,63 @@ export default function Testimonials() {
           )}
           
           {testimonials.length > 1 && (
-            <div className="flex justify-center items-center mt-8 space-x-4">
-              <button 
-                onClick={handlePrevSlide}
-                className="w-10 h-10 rounded-full bg-gray-800 text-blue-500 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
-              >
-                <span>&lt;</span>
-              </button>
-              
-              {testimonials.map((_, index) => (
+            <>
+              <div className="flex justify-center items-center mt-8 space-x-4">
                 <button 
-                  key={index}
-                  onClick={() => setActiveSlide(index)}
-                  className={`w-3 h-3 rounded-full ${activeSlide === index ? 'bg-blue-500' : 'bg-gray-600'}`}
-                />
-              ))}
+                  onClick={handlePrevSlide}
+                  className="w-10 h-10 rounded-full bg-gray-800 text-blue-500 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
+                >
+                  <span>&lt;</span>
+                </button>
+                
+                {/* Розумне відображення точок-індикаторів */}
+                {testimonials.length <= 5 ? (
+                  // Якщо відгуків 5 або менше - показуємо всі точки
+                  testimonials.map((_, index) => (
+                    <button 
+                      key={index}
+                      onClick={() => setActiveSlide(index)}
+                      className={`w-3 h-3 rounded-full transition-colors ${activeSlide === index ? 'bg-blue-500' : 'bg-gray-600'}`}
+                    />
+                  ))
+                ) : (
+                  // Якщо більше 5 - показуємо максимум 5 точок з ...
+                  <>
+                    {activeSlide > 1 && <span className="text-gray-500">...</span>}
+                    
+                    {[...Array(testimonials.length)].map((_, index) => {
+                      const isNearActive = Math.abs(index - activeSlide) <= 2;
+                      const isFirstOrLast = index === 0 || index === testimonials.length - 1;
+                      
+                      if (isNearActive || isFirstOrLast) {
+                        return (
+                          <button 
+                            key={index}
+                            onClick={() => setActiveSlide(index)}
+                            className={`w-3 h-3 rounded-full transition-colors ${activeSlide === index ? 'bg-blue-500' : 'bg-gray-600'}`}
+                          />
+                        );
+                      }
+                      return null;
+                    })}
+                    
+                    {activeSlide < testimonials.length - 2 && <span className="text-gray-500">...</span>}
+                  </>
+                )}
+                
+                <button 
+                  onClick={handleNextSlide}
+                  className="w-10 h-10 rounded-full bg-gray-800 text-blue-500 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
+                >
+                  <span>&gt;</span>
+                </button>
+              </div>
               
-              <button 
-                onClick={handleNextSlide}
-                className="w-10 h-10 rounded-full bg-gray-800 text-blue-500 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
-              >
-                <span>&gt;</span>
-              </button>
-            </div>
+              {/* Лічильник відгуків */}
+              <div className="text-center mt-4 text-gray-400 text-sm">
+                {activeSlide + 1} / {testimonials.length}
+              </div>
+            </>
           )}
         </div>
         
