@@ -85,6 +85,8 @@ export default function AchievementsClient({ initialAchievements, locale }: Achi
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [viewImageUrl, setViewImageUrl] = useState<string | null>(null);
+  const [viewImageTitle, setViewImageTitle] = useState<string>('');
 
   // Функція перезавантаження досягнень з сервера
   const fetchAchievements = async () => {
@@ -224,6 +226,16 @@ export default function AchievementsClient({ initialAchievements, locale }: Achi
     }
   };
 
+  const openImageViewer = (imageUrl: string, title: string) => {
+    setViewImageUrl(imageUrl);
+    setViewImageTitle(title);
+  };
+
+  const closeImageViewer = () => {
+    setViewImageUrl(null);
+    setViewImageTitle('');
+  };
+
   const handleDeleteAchievement = async (id: number, imageUrl: string) => {
     if (!confirm(t('confirmDelete'))) {
       return;
@@ -303,7 +315,11 @@ export default function AchievementsClient({ initialAchievements, locale }: Achi
                   className="group bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-700 hover:border-amber-500/50"
                 >
                   {achievement.image_url && (
-                    <div className="relative w-full h-80 overflow-hidden bg-gray-900">
+                    <div 
+                      className="relative w-full h-80 overflow-hidden bg-gray-900 cursor-pointer"
+                      onClick={() => openImageViewer(achievement.image_url, achievement.title)}
+                      title="Клікніть для перегляду в повному розмірі"
+                    >
                       <Image
                         src={achievement.image_url}
                         alt={achievement.title}
@@ -313,6 +329,9 @@ export default function AchievementsClient({ initialAchievements, locale }: Achi
                         unoptimized
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-60"></div>
+                      <div className="absolute top-2 right-2 bg-black/50 text-white px-2 py-1 rounded text-xs backdrop-blur-sm">
+                        🔍 Переглянути
+                      </div>
                     </div>
                   )}
                   <div className="p-5">
@@ -479,6 +498,40 @@ export default function AchievementsClient({ initialAchievements, locale }: Achi
                     </button>
                   </div>
                 </form>
+              </div>
+            </div>
+          )}
+
+          {viewImageUrl && (
+            <div 
+              className="fixed inset-0 bg-black/95 flex items-center justify-center z-[100] p-4"
+              onClick={closeImageViewer}
+            >
+              <button
+                onClick={closeImageViewer}
+                className="absolute top-4 right-4 text-white bg-red-600 hover:bg-red-700 w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold transition-colors z-10 shadow-lg"
+                aria-label="Закрити"
+              >
+                ×
+              </button>
+              <div className="absolute top-4 left-4 text-white bg-black/50 px-4 py-2 rounded-lg backdrop-blur-sm">
+                <h3 className="text-lg font-semibold">{viewImageTitle}</h3>
+              </div>
+              <div 
+                className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={viewImageUrl}
+                  alt={viewImageTitle}
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  className="rounded-lg"
+                  unoptimized
+                />
+              </div>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm bg-black/50 px-4 py-2 rounded-lg backdrop-blur-sm">
+                Клікніть поза зображенням або на × для закриття
               </div>
             </div>
           )}
