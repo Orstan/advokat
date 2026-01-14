@@ -300,34 +300,35 @@ export default function AchievementsClient({ initialAchievements, locale }: Achi
               achievements.map((achievement) => (
                 <div
                   key={achievement.id}
-                  className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
+                  className="group bg-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-700 hover:border-amber-500/50"
                 >
                   {achievement.image_url && (
-                    <div className="relative w-full" style={{ aspectRatio: '1/1.414', maxHeight: '400px' }}>
+                    <div className="relative w-full h-80 overflow-hidden bg-gray-900">
                       <Image
                         src={achievement.image_url}
                         alt={achievement.title}
                         fill
-                        style={{ objectFit: 'contain' }}
-                        className="rounded-t-lg"
+                        style={{ objectFit: 'cover' }}
+                        className="transition-transform duration-300 group-hover:scale-105"
                         unoptimized
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-60"></div>
                     </div>
                   )}
-                  <div className="p-4">
-                    <h3 className="text-xl font-semibold text-white mb-2">{achievement.title}</h3>
-                    <p className="text-gray-300">{achievement.description}</p>
+                  <div className="p-5">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">{achievement.title}</h3>
+                    <p className="text-gray-300 text-sm leading-relaxed">{achievement.description}</p>
                     {isAdminAuthenticated && (
-                      <div className="flex justify-end space-x-2 mt-4">
+                      <div className="flex justify-end space-x-2 mt-4 pt-4 border-t border-gray-700">
                         <button
                           onClick={() => openEditForm(achievement)}
-                          className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+                          className="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
                         >
                           {t('edit')}
                         </button>
                         <button
                           onClick={() => handleDeleteAchievement(achievement.id, achievement.image_url)}
-                          className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700 transition-colors"
+                          className="px-4 py-1.5 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition-colors shadow-md hover:shadow-lg"
                         >
                           {t('delete')}
                         </button>
