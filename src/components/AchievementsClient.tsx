@@ -405,8 +405,8 @@ export default function AchievementsClient({ initialAchievements, locale }: Achi
           )}
           
           {isFormOpen && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-gray-800 p-6 rounded-lg w-full max-w-lg">
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+              <div className="bg-gray-800 p-6 rounded-lg w-full max-w-lg max-h-[90vh] overflow-y-auto">
                 <h3 className="text-xl font-bold text-white mb-4">
                   {formMode === 'add' ? t('addNew') : t('edit')}
                 </h3>
@@ -449,7 +449,7 @@ export default function AchievementsClient({ initialAchievements, locale }: Achi
                       required={formMode === 'add'}
                     />
                     {imagePreview && (
-                      <div className="mt-2 relative w-full" style={{ aspectRatio: '1/1.414', maxHeight: '400px' }}>
+                      <div className="mt-2 relative w-full" style={{ height: '200px' }}>
                         <Image
                           src={imagePreview}
                           alt="Preview"
